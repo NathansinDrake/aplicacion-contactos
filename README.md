@@ -1,2 +1,1 @@
-﻿# aplicacion-de-contactos
-# aplicacion-de-contactos
+Sencilla aplicacion para agregar contactos a la base de datos 
