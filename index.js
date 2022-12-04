@@ -1,5 +1,6 @@
 import express from 'express' //importacion de Express 
-import { conectar, agregarContacto} from './src/mysql_conector.js'
+import {agregarContacto, obtenerContactos, agregarContacto, borrarContacto} from './src/mysql_conector.js'
+let todos
 const app = express() //iniciamos Express
 //inicar configuracion
 app.listen('8000', function() {
@@ -16,14 +17,21 @@ app.use(express.static('./css'))
  
 
 app.get('/', function(req, res){
-    res.render('index', {titulo:'aplicacion de contactos'})
-     
-})
 
+    todos =obtenerContactos()
+    res.render('index', {titulo:'aplicacion de contactos', contactos:todos})
+})
 app.get('/agregar/:nombre/:numero', function(req, res){
     let nombre = req.params.nombre
     let numero = req.params.numero  
     agregarContacto(nombre, numero)
     res.redirect('/')
+
     console.log (nombre, numero)
 })
+app.get('borrar/:id', function(req, res){
+    let id =req.params.id
+    borrarContacto(id)
+    res.redirect('/')
+})
+ 
